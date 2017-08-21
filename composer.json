@@ -1,0 +1,25 @@
+{
+  "name": "basili4/test",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Your Name",
+      "email": "you@example.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "inc/",
+      "controllers/",
+      "models/"
+
+    ],
+    "files": [
+      "inc/exceptions/Http.php"
+    ]
+  },
+  "require": {
+    "twig/twig": "^2.4",
+    "twbs/bootstrap": "^3.3"
+  }
+}

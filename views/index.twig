@@ -1,0 +1,99 @@
+{% extends "main.twig" %}
+{% block content %}
+    <div class="starter-template">
+        <table class="table">
+            <thead>
+            <th>
+                Изображение
+            </th>
+            <th>
+                Пользователь
+                <a
+                        class="glyphicon glyphicon-chevron-up"
+                        href="{{ param2url({'field':'username','type':'asc'}) }}"
+                        title="up">
+                </a>
+                <a
+                        class="glyphicon glyphicon-chevron-down"
+                        href="{{ param2url({'field':'username','type':'desc'}) }}"
+                        title="down">
+                </a>
+            </th>
+            <th>
+                Email
+                <a
+                        class="glyphicon glyphicon-chevron-up"
+                        href="{{ param2url({'field':'email','type':'asc'}) }}"
+                        title="up">
+                </a>
+                <a
+                        class="glyphicon glyphicon-chevron-down"
+                        href="{{ param2url({'field':'email','type':'desc'}) }}"
+                        title="down">
+                </a>
+            </th>
+            <th>
+                Контент
+            </th>
+            </thead>
+            {% for  task in listTasks %}
+                <tr>
+                    <td>
+                        {#<img class="media-object" src="" alt="...">#}
+                        Изображение
+                    </td>
+                    <td {% if task.status ==  constant('\\models\\Tasks::ST_DONE') %} class="d_task" {% endif %}>
+                        <a href="{{ url('view') }}">{{ task.username }}</a>
+                    </td>
+                    <td {% if task.status ==  constant('\\models\\Tasks::ST_DONE') %} class="d_task" {% endif %}>
+                        <a href="#">{{ task.email }}</a>
+                    </td>
+                    <td {% if task.status ==  constant('\\models\\Tasks::ST_DONE') %} class="d_task" {% endif %}>
+                        <a href="#">{{ task.content }}</a>
+                    </td>
+                    <td>
+                        {% if task.status ==  constant('\\models\\Tasks::ST_DONE') %}
+                            <p class="label label-success">готово</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <ul class="pagination">
+            <li {% if page==i %} class="disabled" {% endif %}>
+                {% if page!=1 %}
+                    <a href="{{ param2url({'page':1}) }}">«</a>
+                {% else %}
+                    <span>«</span>
+                {% endif %}
+            </li>
+            {% if count>10 %}
+                {% set startPage=page-5<1?1:page-5 %}
+                {% set countPage= page+4>count?count:page+4 %}
+            {% else %}
+                {% set countPage=count %}
+                {% set startPage=1 %}
+            {% endif %}
+            {% for i in startPage..countPage %}
+                <li {% if page==i %} class="active" {% endif %}>
+                    {% if page!=i %}
+                        <a href="{{ param2url({'page':i}) }}">{{ i }}</a>
+                    {% else %}
+                        <span>{{ i }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            <li
+                    {% if page==count %} class="disabled" {% endif %}
+            >
+                {% if page!=count %}
+                    <a href="{{ param2url({'page':count}) }}">»</a>
+                {% else %}
+                    <span>»</span>
+                {% endif %}
+
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
